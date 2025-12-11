@@ -1,8 +1,8 @@
 
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import { cart, deleteFromCart, updateDeliveryOption } from '../data/cart.js';
-import { deliveryOptions } from '../data/deliveryOptions.js';
-import { products } from '../data/products.js';
+import { deliveryOptions, getDeliveryOption } from '../data/deliveryOptions.js';
+import {  products,getProduct } from '../data/products.js';
 import { formatCurrency } from '../scripts/utils/money.js';// Note: Check if 'money.js' is in '../utils/' or './utils/' depending on your folder structure.
 
 const today=dayjs();
@@ -19,23 +19,11 @@ cart.forEach((cartItem)=>{
 
   const productId=cartItem.productId;
 
-  let matchingProduct;
+  const matchingProduct=getProduct(productId);  
 
-  products.forEach((product)=>{
-    if(product.id===productId){
-      matchingProduct=product;
-  }
-});
+  const deliveryOptionId=cartItem.deliveryOptionId;
 
-const deliverOptionId=cartItem.deliveryOptionId;
-
-let deliveryOption;
-
-deliveryOptions.forEach((option)=>{
-  if(option.id===deliverOptionId){
-    deliveryOption=option;
-  }
-});
+  const deliveryOption=getDeliveryOption(deliveryOptionId);
 
   const today = dayjs();
     const deliveryDate = today.add(
