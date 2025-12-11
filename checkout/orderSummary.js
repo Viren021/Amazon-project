@@ -4,11 +4,9 @@ import { cart, deleteFromCart, updateDeliveryOption } from '../data/cart.js';
 import { deliveryOptions, getDeliveryOption } from '../data/deliveryOptions.js';
 import {  products,getProduct } from '../data/products.js';
 import { formatCurrency } from '../scripts/utils/money.js';// Note: Check if 'money.js' is in '../utils/' or './utils/' depending on your folder structure.
+import { renderPaymentSummary } from './paymentSummary.js';
 
-const today=dayjs();
-const deliveryDate=today.add(7,'days');
 
-console.log(deliveryDate.format('dddd,MMMM D'));
 
 export function renderOrderSummary(){
 
@@ -124,6 +122,7 @@ document.querySelectorAll('.js-delete-link')
 
     const container =document.querySelector(`.js-cart-item-container-${productId}`);
     container.remove();
+    renderPaymentSummary();
   })
 })
 
@@ -133,6 +132,7 @@ document.querySelectorAll('.js-delivery-option')
     const {productId,deliveryOptionId}=element.dataset;
     updateDeliveryOption(productId,deliveryOptionId);
     renderOrderSummary();
+    renderPaymentSummary();
   })
 })
 
