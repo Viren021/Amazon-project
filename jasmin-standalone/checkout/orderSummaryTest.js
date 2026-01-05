@@ -1,6 +1,6 @@
 import { renderOrderSummary } from "../../checkout/orderSummary.js";
 import { loadFromStorage } from "../../data/cart.js";
-import { loadProducts } from "../../data/products.js";
+import { loadProducts, loadProductsFetch } from "../../data/products.js";
 
 describe('test suite:render order summary', () => {
   // Define variables here so they are accessible in all tests
@@ -9,7 +9,7 @@ describe('test suite:render order summary', () => {
 
   // FIX 1: Move beforeAll here. This ensures products load before ANY test runs.
   beforeAll((done) => {
-    loadProducts(() => {
+    loadProductsFetch().then(()=>{
       done();
     });
   });
