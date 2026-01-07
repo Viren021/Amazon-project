@@ -7,16 +7,26 @@ import { loadProducts, loadProductsFetch } from "../data/products.js";
 
 
 async function loadPage(){
-  await loadProductsFetch();
-  const value=await new Promise((resolve)=>{
-    loadCart(()=>{
-      resolve('value3');
+  try{
+    // throw 'err1';
+    await loadProductsFetch();
+    const value=await new Promise((resolve,reject)=>{
+      // throw 'err2';
+      loadCart(()=>{
+        // reject('err3');
+        resolve('value3');
+      });
     });
-  });
+  } catch(error){
+    console.log('error in loading page');
+  }
+
   renderOrderSummary();
   renderPaymentSummary();
 }
 loadPage();
+
+
 
 // Promise.all([
 //   loadProductsFetch(),
